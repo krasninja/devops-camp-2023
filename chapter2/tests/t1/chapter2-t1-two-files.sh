@@ -2,7 +2,7 @@
 #
 # Script processes input files. If file exists - output it, otherwise
 # create it with permission 700 with bash64 password.
-set -eo pipefail
+set -eou pipefail
 
 if [ $# -lt 2 ]; then
   echo "The script requires at least 2 arguments - filenames"
