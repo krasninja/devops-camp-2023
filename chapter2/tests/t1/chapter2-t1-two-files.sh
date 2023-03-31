@@ -1,25 +1,27 @@
 #!/bin/bash
+#
+# Script processes input files. If file exists - output it, otherwise
+# create it with permission 700 with bash64 password.
+set -eo pipefail
 
-# stop on first error
-set -e
-
-# validate
-if [ "$#" -lt 2 ]; then
+if [ $# -lt 2 ]; then
   echo "The script requires at least 2 arguments - filenames"
   exit 1
 fi
 
-# iterate thru files
+# Iterate thru files.
 while (( $# )); do
-  file=$(basename $1)
-  # if exists - show content
-  if [ -e $file ]; then
-    cat $file
-  # if not - create with random base64 string and permissions rwx------
+  file="$1"
+  # If exists - show content.
+  if [ -e "${file}" ]; then
+    cat "${file}"
+    echo ''
+  # If not - create with random base64 string and permissions rwx------.
   else
-    cat /dev/random | tr -cd '[[:alnum:]]' | head -c 12 | base64 > $file
-    chmod 700 $file
-    echo "Created file $file"
+    local_file="$(basename "${file}")"
+    openssl rand -base64 12 > "${local_file}"
+    chmod 700 "${local_file}"
+    echo "Created file ${local_file}"
   fi
 
   shift
