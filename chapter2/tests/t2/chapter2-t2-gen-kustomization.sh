@@ -4,14 +4,14 @@
 # outputs the Kustomization configuration.
 set -eo pipefail
 
+readonly DEPLOY_KEY_POSTFIX="deploy-key.pem"
+readonly REPO_DIR="repos"
+readonly KUSTOMIZATION_FILE="./$REPO_DIR/kustomization.yaml"
+
 if [ $# -eq 0 ]; then
   echo "Usage: chapter2-t2-gen-kustomization.sh [REPO]..."
   exit 1
 fi
-
-readonly DEPLOY_KEY_POSTFIX="deploy-key.pem"
-readonly REPO_DIR="repos"
-readonly KUSTOMIZATION_FILE="./$REPO_DIR/kustomization.yaml"
 
 # Init, prepare kustomize.
 mkdir -p repos
