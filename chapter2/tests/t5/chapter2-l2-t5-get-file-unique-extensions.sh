@@ -6,11 +6,11 @@ set -eou pipefail
 IFS=$'\n'
 
 #######################################
-# Get files extensions (including directories).
+# Get directory files extensions (including nested directories).
 # Arguments:
 #   Directory.
 # Outputs:
-#   Writes extensoin to stdout.
+#   Writes extension into stdout.
 #######################################
 function get_files_extensions {
   for file in $(find "$1" -type f 2>/dev/null); do
