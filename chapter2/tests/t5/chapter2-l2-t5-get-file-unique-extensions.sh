@@ -14,7 +14,8 @@ IFS=$'\n'
 #######################################
 function get_files_extensions {
   for file in $(find "$1" -type f 2>/dev/null); do
-    echo "${file##*.}"
+    # Check if file has extension.
+    [[ "${file}" =~ \.[^\/]+$ ]] && echo "${file##*.}" || continue
   done
 }
 
