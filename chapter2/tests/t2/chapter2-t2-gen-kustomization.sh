@@ -30,8 +30,9 @@ while (( $# )); do
 
   # Validate repository name.
   if [[ ! "${repo}" =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
-    echo "Invalid repository name '${repo}'" >&2
-    exit 1
+    echo "Invalid repository name '${repo}', skipped." >&2
+    shift
+    continue
   fi
 
   deploy_key="./${REPO_DIR}/${repo}-${DEPLOY_KEY_POSTFIX}"
