@@ -5,6 +5,13 @@ set -eou pipefail
 
 IFS=$'\n'
 
+dir="${1}"
+
+if [[ ! -e "${dir}" || ! -d "${dir}" ]]; then
+  echo "The '${dir}' does not exist or it is not a directory." >&2
+  exit 1
+fi
+
 #######################################
 # Get directory files extensions (including nested directories).
 # Arguments:
@@ -19,6 +26,5 @@ function get_files_extensions {
   done
 }
 
-dir=${1?'Usage: [DIR]'}
 get_files_extensions "${dir}" | sort | uniq
 
