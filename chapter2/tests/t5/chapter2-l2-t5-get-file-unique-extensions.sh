@@ -20,7 +20,8 @@ fi
 #   Writes extension into stdout.
 #######################################
 function get_files_extensions {
-  for file in $(find "$1" -type f 2>/dev/null); do
+  local dir="${1}"
+  for file in $(find "${dir}" -type f 2>/dev/null); do
     # Check if file has extension.
     [[ "${file}" =~ \.[^\/]+$ ]] && echo "${file##*.}" || continue
   done
