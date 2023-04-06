@@ -8,7 +8,7 @@ IFS=$'\n'
 dir="${1}"
 
 if [[ ! -e "${dir}" || ! -d "${dir}" ]]; then
-  echo "The '${dir}' does not exist or it is not a directory." 1>&2
+  echo "The '${dir}' does not exist or it is not a directory." >&2
   exit 1
 fi
 
