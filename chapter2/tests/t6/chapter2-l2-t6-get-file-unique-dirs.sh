@@ -5,6 +5,13 @@ set -eou pipefail
 
 IFS=$'\n'
 
+dir="${1}"
+
+if [[ ! -e "${dir}" || ! -d "${dir}" ]]; then
+  echo "The '${dir}' does not exist or it is not a directory." >&2
+  exit 1
+fi
+
 #######################################
 # Get files directories (including nested directories).
 # Arguments:
@@ -13,11 +20,11 @@ IFS=$'\n'
 #   Writes directories into stdout.
 #######################################
 function get_files_directories {
-  for file in $(find "$1" -type f 2>/dev/null); do
+  local dir="${1}"
+  for file in $(find "${dir}" -type f 2>/dev/null); do
     echo "${file%/*}"
   done
 }
 
-dir=${1?'Usage: [DIR]'}
 get_files_directories "${dir}" | sort | uniq
 
