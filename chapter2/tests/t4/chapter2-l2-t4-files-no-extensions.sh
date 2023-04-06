@@ -5,8 +5,18 @@ set -eou pipefail
 
 IFS=$'\n'
 
-dir=${1?"Usage: [DIR]"}
+dir="${1}"
+
+if [[ ! -e "${dir}" || ! -d "${dir}" ]]; then
+  echo "The '${dir}' does not exist or it is not a directory." 1>&2
+  exit 1
+fi
+
 for file in $(find "${dir}" -type f 2> /dev/null); do
-  echo "${file%.*}"
+  # Check if file has extension. If it has - trim it, otherwise return dir.
+  file_name="${file##*/}"
+  file_dir="${file%/*}"
+  file_extension="${file_name%%.*}"
+  [[ -n "${file_extension}" ]] && echo "${file_dir}/${file_name%.*}" || echo "${file_dir}/"
 done
 
