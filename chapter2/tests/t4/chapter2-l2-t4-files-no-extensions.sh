@@ -16,7 +16,7 @@ for file in $(find "${dir}" -type f 2> /dev/null); do
   # Check if file has extension. If it has - trim it, otherwise return dir.
   file_name="${file##*/}"
   file_dir="${file%/*}"
-  file_extension="${file_name%%.*}"
+  file_extension="${file_name%.*}"
   [[ -n "${file_extension}" ]] && echo "${file_dir}/${file_name%.*}" || echo "${file_dir}/"
 done
 
