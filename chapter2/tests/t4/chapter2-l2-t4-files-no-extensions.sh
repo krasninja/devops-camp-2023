@@ -1,9 +1,13 @@
 #!/bin/bash
-#
 # The scripts returns list of files without extension.
 set -eou pipefail
 
 IFS=$'\n'
+
+if [[ "${#}" -ne 1 ]]; then
+  echo "Usage: [DIR]"
+  exit 1
+fi
 
 dir="${1}"
 
