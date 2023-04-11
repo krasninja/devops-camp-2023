@@ -21,7 +21,7 @@ fi
 #######################################
 function get_files_directories {
   local dir="${1}"
-  for file in $(find "${dir}" -type f 2>/dev/null); do
+  for file in $(find "${dir}" -type f 2> /dev/null); do
     echo "${file%/*}"
   done
 }
