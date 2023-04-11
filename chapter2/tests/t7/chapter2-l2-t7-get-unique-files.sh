@@ -1,9 +1,13 @@
 #!/bin/bash
-#
 # The scripts returns the list of unique file names (including nested directories).
 set -eou pipefail
 
 IFS=$'\n'
+
+if [[ "${#}" -ne 1 ]]; then
+  echo "Usage: [DIR]"
+  exit 1
+fi
 
 dir="${1}"
 
@@ -14,17 +18,16 @@ fi
 
 #######################################
 # Get files (including nested directories).
-# Arguments:
-#   Directory.
+# Globals:
+#   Directory (dir).
 # Outputs:
 #   Writes file to stdout.
 #######################################
 function get_files {
-  local dir="${1}"
-  for file in $(find "${dir}" -type f 2> /dev/null); do
+  for file in $(find "${dir}" -type f); do
     echo "${file##*/}"
   done
 }
 
-get_files "${dir}" | sort | uniq
+get_files | sort -u
 
