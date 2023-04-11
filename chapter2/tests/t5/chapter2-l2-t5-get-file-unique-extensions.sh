@@ -21,7 +21,7 @@ fi
 #######################################
 function get_files_extensions {
   local dir="${1}"
-  for file in $(find "${dir}" -type f 2>/dev/null); do
+  for file in $(find "${dir}" -type f 2> /dev/null); do
     # Check if file has extension.
     [[ "${file}" =~ \.[^\/]+$ ]] && echo "${file##*.}" || continue
   done
