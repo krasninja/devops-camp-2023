@@ -1,5 +1,5 @@
 <?php
-  sleep(30);
+  sleep(11 * 60);
   print('SLOW REPORT');
 ?>
 
