@@ -6,9 +6,6 @@ server {
   ssl_certificate .private/_wildcard.camp-php.local+1.pem;
   ssl_certificate_key .private/_wildcard.camp-php.local+1-key.pem;
 
-  access_log /var/log/nginx/access-php.log main;
-  error_log /var/log/nginx/error-php.log error;
-
   root /tmp/nginx/reports;
 
   location /reports/fast {
@@ -26,4 +23,3 @@ server {
     fastcgi_pass php-www-slow;
   }
 }
-
