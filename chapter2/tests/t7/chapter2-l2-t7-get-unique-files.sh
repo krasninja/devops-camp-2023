@@ -30,4 +30,3 @@ function get_files {
 }
 
 get_files | sort -u
-
