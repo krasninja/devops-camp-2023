@@ -6,6 +6,7 @@ set -eou pipefail
 trap 'echo ERROR!; echo on line: $LINENO in $0; cat $0 | sed "$LINENO!d"' ERR
 trap '' SIGHUP
 
+readonly SLEEP_TIMEOUT_SEC=2
 readonly PORT_START=10000
 readonly PORT_END=10100
 readonly FILTER_EXPR="( sport >= ${PORT_START} && sport <= ${PORT_END} )"
@@ -26,6 +27,5 @@ while true; do
   fi
 
   total_ss_output="${ss_output}"
-  sleep 2
+  sleep "${SLEEP_TIMEOUT_SEC}"
 done
-
