@@ -3,6 +3,8 @@
 # The script shows all TCP connections in the port range 10000-10100.
 set -eou pipefail
 
+readonly SLEEP_TIMEOUT_SEC=2
+
 readonly PORT_START=10000
 readonly PORT_END=10100
 readonly FILTER_EXPR="( sport >= ${PORT_START} && sport <= ${PORT_END} )"
@@ -42,6 +44,5 @@ function get_connections {
 
 while true; do
   get_connections
-  sleep 2
+  sleep "${SLEEP_TIMEOUT_SEC}"
 done
-
