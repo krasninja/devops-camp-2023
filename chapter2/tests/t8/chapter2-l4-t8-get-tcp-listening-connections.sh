@@ -21,7 +21,7 @@ total_ss_output=''
 #######################################
 function get_connections {
   # Compare last tracked connections and current ones. We want to display only new connections.
-  local ss_output=$(ss -ltn "${FILTER_EXPR}" --no-header)
+  local ss_output=$(ss -ltnH "${FILTER_EXPR}")
   local diff=$( comm -13 <(echo "${total_ss_output}") <(echo "${ss_output}") )
 
   # Case when we have no matched connections at all.
