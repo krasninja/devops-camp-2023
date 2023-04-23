@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  game:
+    image: krasninja/devops-camp:0.1.0
+    build:
+      context: .
