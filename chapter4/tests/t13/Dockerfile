@@ -1,4 +1,13 @@
-FROM --platform=$BUILDPLATFORM node:16-alpine
+# -----------------------------------------------
+# The image contains Flatris web game:
+# https://github.com/udaltsovra/flatris
+#
+# You can build it like this:
+# docker build -t krasninja/devops-camp:0.1.0 --rm --force-rm --build-arg .
+# -----------------------------------------------
+
+ARG VERSION=16-alpine
+FROM --platform=$BUILDPLATFORM node:$VERSION
 
 # Get the app from the Github.
 WORKDIR /build
@@ -12,6 +21,6 @@ WORKDIR /build/flatris-main
 RUN yarn install && \
   yarn build
 
-# Run,
+# Run.
 EXPOSE 3000
 ENTRYPOINT ["yarn", "start"]

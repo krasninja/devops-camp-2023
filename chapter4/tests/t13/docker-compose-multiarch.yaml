@@ -4,4 +4,9 @@ services:
   game:
     image: krasninja/devops-camp:0.1.0
     build:
-      context: .
+      platforms:
+        - "linux/amd64"
+        - "linux/arm/v8"
+        - "linux/arm64"
+      context:
+        .
