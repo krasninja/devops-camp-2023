@@ -21,7 +21,7 @@ RUN python -m venv /venv && \
  /venv/bin/pip install --no-cache-dir -r /app/requirements.txt
 
 # Create distroless container.
-FROM gcr.io/distroless/python3-debian11@sha256:57dbab565d405ce5ae9c7a8c781c95fa229655cb8381d0e5db4ece28661fa687
+FROM gcr.io/distroless/python3-debian11:latest-amd64
 COPY --from=builder /venv /venv
 COPY ./testtask /app
 WORKDIR /app
