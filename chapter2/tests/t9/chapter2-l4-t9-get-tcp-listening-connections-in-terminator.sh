@@ -1,10 +1,8 @@
 #!/bin/bash
-#
 # The solution should always output in the open terminator console even if you close and reopen the terminator window.
 set -eou pipefail
 
 trap 'echo ERROR!; echo on line: $LINENO in $0; cat $0 | sed "$LINENO!d"' ERR
-trap '' SIGHUP
 
 readonly SLEEP_TIMEOUT_SEC=2
 readonly PORT_START=10000
@@ -21,9 +19,11 @@ while true; do
 
   # Display diff to active ttys.
   if [[ -n "${diff}" ]]; then
-    for tty in $(who | awk '{print $2}'); do
-      $(echo "${diff}" | awk '{ printf "%-20s %-20s\n", $4, $5 }' 2>/dev/null > "/dev/${tty}") || true
-    done
+    readonly terminator_pid=$(pgrep terminator)
+    if [[ -n "${terminator_pid}" ]]; then
+      readonly terminator_zsh_pid=$(pgrep -P "${terminator_pid}" zsh)
+      $(echo "${diff}" | awk '{ printf "%-20s %-20s\n", $4, $5 }' 2>/dev/null > "/proc/${terminator_zsh_pid}/fd/1") || true
+    fi
   fi
 
   total_ss_output="${ss_output}"
