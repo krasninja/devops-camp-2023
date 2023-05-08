@@ -19,7 +19,8 @@ while true; do
 
   # Display diff to active ttys.
   if [[ -n "${diff}" ]]; then
-    readonly terminator_pid=$(pgrep terminator)
+    terminator_pid=$(pgrep terminator)
+    readonly terminator_pid
     if [[ -n "${terminator_pid}" ]]; then
       readonly terminator_zsh_pid=$(pgrep -P "${terminator_pid}" zsh)
       $(echo "${diff}" | awk '{ printf "%-20s %-20s\n", $4, $5 }' 2>/dev/null > "/proc/${terminator_zsh_pid}/fd/1") || true
