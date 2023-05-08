@@ -15,15 +15,16 @@ echo "Looking for the new listening TCP sockets on ports ${PORT_START}-${PORT_EN
 while true; do
   # Compare last tracked connections and current ones. We want to display only new connections.
   ss_output=$(ss -ltn "${FILTER_EXPR}" --no-header)
-  diff=$( comm -13 <(echo "${total_ss_output}") <(echo "${ss_output}") )
+  ss_diff=$( comm -13 <(echo "${total_ss_output}") <(echo "${ss_output}") )
 
   # Display diff to active ttys.
-  if [[ -n "${diff}" ]]; then
+  if [[ -n "${ss_diff}" ]]; then
     terminator_pid=$(pgrep terminator)
     readonly terminator_pid
     if [[ -n "${terminator_pid}" ]]; then
-      readonly terminator_zsh_pid=$(pgrep -P "${terminator_pid}" zsh)
-      $(echo "${diff}" | awk '{ printf "%-20s %-20s\n", $4, $5 }' 2>/dev/null > "/proc/${terminator_zsh_pid}/fd/1") || true
+      terminator_zsh_pid=$(pgrep -P "${terminator_pid}" zsh)
+      readonly terminator_zsh_pid
+      $(echo "${ss_diff}" | awk '{ printf "%-20s %-20s\n", $4, $5 }' 2>/dev/null > "/proc/${terminator_zsh_pid}/fd/1") || true
     fi
   fi
 
